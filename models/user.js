@@ -60,7 +60,7 @@ userSchema.pre('findOneAndUpdate', function(next) {
         return next({ errors });
     }
     if (Object.keys(update.$set).includes('password') && update.$set.password) {
-        return bcrypt.hash(10, update.$set.password)
+        return bcrypt.hash(update.$set.password, 10)
         .then((hashedPassword) => {
             update.$set.password = hashedPassword;
             return next();

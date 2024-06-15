@@ -2,17 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config.json')
 const app = express();
+const cors = require('cors');
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cors());
 const connection = require('./connection')
-connection.connect((err) => {
-    if(err){
-        console.log(err)
-        throw err;
-    } else {
-        console.log('connected to database');
-    }
-})
 app.use('/users', require('./routes/user'))
 app.use(function(err, req, res, next) {
     console.log(err,"weee", err.name)
